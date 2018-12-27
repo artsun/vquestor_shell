@@ -1,0 +1,1 @@
+return API.users.get({"user_ids": Args.user_id, fields : Args.fields});
