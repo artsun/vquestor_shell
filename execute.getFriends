@@ -1,0 +1,1 @@
+return API.friends.get({"user_id": Args.user_id, fields : Args.fields});
