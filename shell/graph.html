@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+	<title></title>
+	<script src="cytoscape.js"></script>
+	<script src="jquery-3.3.1.min.js"></script>
+</head>
+<style>
+    #cy {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+
+    }
+</style>
+<body>
+	<div id="cy"></div>
+
+<script>
+        $.getJSON("http://localhost:8000/user_data.js", function (data) {
+            //console.log(data);
+            var cy = cytoscape({
+                container: document.getElementById('cy'),
+                elements: data[0],
+                style: data[1],
+                layout: {
+                    name: 'breadthfirst',
+                    directed: true,
+                    fit: true,
+                    avoidOverlap: true,
+                    spacingFactor: 2.75,
+                    padding: 10,
+                }
+            });
+        });
+</script>
+
+</body>
+</html>
