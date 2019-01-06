@@ -45,7 +45,7 @@ def parse_data(post_data):
     print("post_data", post_data)
     base_id = post_data[0].replace('base_id=', '')
     if base_id is (None or ''):
-        base_id = 572580
+        base_id = None #need default
     mytoken = post_data[1].replace('mytoken=', '')
     if mytoken is (None or ''):
         mytoken = None #need default
