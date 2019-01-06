@@ -3,6 +3,7 @@ from classes import Vertex
 from file_maker import to_file
 from jsongen import make_json
 import json
+from globals import res#, set_presets
 
 
 def dig_in(id_, depth_, mytoken, node_, nd_viz, ed_viz, style_viz):
@@ -21,6 +22,8 @@ def dig_in(id_, depth_, mytoken, node_, nd_viz, ed_viz, style_viz):
 
 
 def start(base_id, mytoken, depth):
+    global res
+    res = 0
     print("START DIG")
     user = getnode(base_id, mytoken)
     links = getlinks(base_id, user, mytoken)
@@ -35,3 +38,20 @@ def start(base_id, mytoken, depth):
     user_data.append(nodes_edges_js)
     user_data.append(style_viz)
     to_file(json.dumps(user_data, ensure_ascii=False))
+    res = 1
+
+def parse_data(post_data):
+    global res
+    print("post_data", post_data)
+    base_id = post_data[0].replace('base_id=', '')
+    if base_id is (None or ''):
+        base_id = 572580
+    mytoken = post_data[1].replace('mytoken=', '')
+    if mytoken is (None or ''):
+        mytoken = None #need default
+    depth = post_data[2].replace('depth=', '')
+    if depth is (None or ''):
+        depth = 2
+    #base_id, mytoken, depth = set_presets(base_id, mytoken, depth)
+    start(base_id, mytoken, depth)
+    res = 1
