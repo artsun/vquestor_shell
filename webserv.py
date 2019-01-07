@@ -2,7 +2,6 @@ from globals import WEBDIR, res
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from dig import parse_data
 import threading
-#from multiprocessing import Pool
 
 
 class HttpProcessor(BaseHTTPRequestHandler):
@@ -14,6 +13,11 @@ class HttpProcessor(BaseHTTPRequestHandler):
             post_data = (self.rfile.read(content_length)).decode()
             post_data = post_data.split('&')
             print("res check", res)
+            if res[0]:
+                print("MAKE IT!")
+                self.send_response(301)
+                self.send_header('Location', '/graph')
+                self.end_headers()
 
         else:
             content_length = int(self.headers['Content-Length'])  # <--- Gets the size of data
@@ -27,7 +31,6 @@ class HttpProcessor(BaseHTTPRequestHandler):
             #redirect
             self.send_response(301)
             self.send_header('Location', '/wait')
-            print("path",self.path)
             self.end_headers()
 
 
